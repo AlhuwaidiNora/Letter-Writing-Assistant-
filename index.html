@@ -1,0 +1,667 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>مساعد صياغة الخطابات</title>
+  <style>
+    :root {
+      --ink: #231a1c;
+      --muted: #6f6365;
+      --line: #e2d8d4;
+      --paper: #faf7f3;
+      --panel: #ffffff;
+      --accent: #9c2638;
+      --accent-dark: #721929;
+      --accent-2: #ed6b3f;
+      --soft: #fff2ec;
+      --shadow: 0 22px 55px rgba(59, 31, 34, 0.12);
+      --shadow-soft: 0 10px 26px rgba(59, 31, 34, 0.08);
+      --danger: #8a2f2f;
+      font-family: "Times New Roman", "Traditional Arabic", "Arabic Typesetting", serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 86% 8%, rgba(237, 107, 63, 0.16), transparent 30%),
+        radial-gradient(circle at 12% 22%, rgba(156, 38, 56, 0.08), transparent 28%),
+        linear-gradient(180deg, #fffaf7 0%, #f3eeea 100%);
+      min-height: 100vh;
+      font-family: "Times New Roman", "Traditional Arabic", "Arabic Typesetting", serif;
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.94);
+      border-bottom: 1px solid var(--line);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(14px);
+    }
+
+    .bar {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .mark {
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      background: #fff;
+      border: 1px solid rgba(156, 38, 56, 0.16);
+      border-radius: 12px;
+      box-shadow: 0 12px 28px rgba(156, 38, 56, 0.14);
+      padding: 7px;
+    }
+
+    .mark img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 20px;
+      line-height: 1.25;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    main {
+      max-width: 1220px;
+      margin: 0 auto;
+      padding: 24px 18px 32px;
+      display: grid;
+      grid-template-columns: minmax(320px, 0.92fr) minmax(360px, 1.08fr);
+      gap: 18px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      min-width: 0;
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .panel-head {
+      padding: 15px 17px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(180deg, #ffffff, #fffaf7);
+    }
+
+    h2 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .content {
+      padding: 16px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 7px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      border: 1px solid #cbd2cc;
+      background: #fff;
+      color: var(--ink);
+      border-radius: 7px;
+      padding: 10px 11px;
+      font: inherit;
+      min-height: 42px;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(156, 38, 56, 0.12);
+    }
+
+    textarea {
+      min-height: 132px;
+      resize: vertical;
+      line-height: 1.7;
+    }
+
+    .field {
+      margin-bottom: 13px;
+    }
+
+    .wide {
+      grid-column: 1 / -1;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    button {
+      border: 1px solid transparent;
+      background: var(--accent);
+      color: #fff;
+      min-height: 38px;
+      padding: 8px 12px;
+      border-radius: 7px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(156, 38, 56, 0.18);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+    }
+
+    button.secondary {
+      background: #fff;
+      color: var(--ink);
+      border-color: var(--line);
+      box-shadow: none;
+    }
+
+    button.warn {
+      background: #fff;
+      color: var(--danger);
+      border-color: #e5caca;
+    }
+
+    button:hover {
+      filter: brightness(0.97);
+      transform: translateY(-1px);
+    }
+
+    .switches {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .check {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      padding: 9px;
+      font-size: 13px;
+      font-weight: 600;
+      background: #fbfcfa;
+    }
+
+    .check input {
+      width: 16px;
+      min-height: 16px;
+      height: 16px;
+      accent-color: var(--accent);
+    }
+
+    .letter-shell {
+      background: var(--paper);
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      padding: 18px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+    }
+
+    #output {
+      width: 100%;
+      min-height: 620px;
+      padding: 28px;
+      border: 1px solid #e1d5ce;
+      background: #fff;
+      border-radius: 6px;
+      line-height: 2;
+      font-size: 17px;
+      font-family: "Times New Roman", "Traditional Arabic", "Arabic Typesetting", serif;
+      white-space: pre-wrap;
+      box-shadow: var(--shadow);
+      background-image: linear-gradient(90deg, rgba(156, 38, 56, 0.035), transparent 16%);
+    }
+
+    .hint {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+      margin-top: 8px;
+    }
+
+    .tone {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tone label {
+      margin: 0;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      cursor: pointer;
+      background: #fff;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+
+    .tone label:hover,
+    .check:hover {
+      border-color: rgba(156, 38, 56, 0.35);
+      background: var(--soft);
+    }
+
+    .tone input {
+      width: 15px;
+      height: 15px;
+      min-height: 15px;
+      margin-left: 5px;
+      accent-color: var(--accent-2);
+    }
+
+    .mini {
+      font-size: 12px;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    @media (max-width: 900px) {
+      main { grid-template-columns: 1fr; }
+      #output { min-height: 460px; padding: 18px; }
+    }
+
+    @media (max-width: 560px) {
+      .bar { align-items: flex-start; }
+      .subtitle { white-space: normal; }
+      .grid, .switches { grid-template-columns: 1fr; }
+      .panel-head { align-items: flex-start; flex-direction: column; }
+      .toolbar { width: 100%; }
+      button { flex: 1 1 auto; }
+    }
+
+    @media print {
+      header, .input-panel, .panel-head .toolbar, .hint { display: none !important; }
+      body { background: #fff; }
+      main { display: block; padding: 0; max-width: none; }
+      .panel, .letter-shell, #output {
+        border: 0;
+        box-shadow: none;
+        border-radius: 0;
+      }
+      #output {
+        min-height: auto;
+        padding: 0;
+        font-size: 15pt;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <div class="brand">
+        <div class="mark"><img src="majal-logo-icon.png" alt="شعار مجال الإنجاز"></div>
+        <div>
+          <h1>مساعد صياغة الخطابات</h1>
+          <div class="subtitle">تحويل الملاحظات أو النص الخام إلى خطاب رسمي مناسب للشركة</div>
+        </div>
+      </div>
+      <button class="secondary" id="sampleBtn">تجربة مثال</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel input-panel">
+      <div class="panel-head">
+        <h2>بيانات الخطاب</h2>
+        <p class="mini">املئي الحقول الأساسية ثم اضغطي صياغة</p>
+      </div>
+      <div class="content">
+        <div class="grid">
+          <div class="field">
+            <label for="recipient">اسم الجهة</label>
+            <input id="recipient" placeholder="مثال: أمانة الأحساء">
+          </div>
+          <div class="field">
+            <label for="recipientTitle">صفة المخاطب</label>
+            <input id="recipientTitle" placeholder="مثال: سعادة مدير إدارة المشاريع">
+          </div>
+          <div class="field">
+            <label for="letterType">نوع الخطاب</label>
+            <select id="letterType">
+              <option value="general">خطاب رسمي عام</option>
+              <option value="extension">الموافقة على تمديد مدة مشروع</option>
+              <option value="deficit">تقديم الوفر/العجز</option>
+              <option value="deficitReply">الرد على إيميل الوفر/العجز</option>
+              <option value="handover">تفويض توقيع محضر استلام الموقع</option>
+              <option value="team">الجهاز الفني للمشروع</option>
+              <option value="managerAlt">اعتماد بديل مدير مشروع</option>
+              <option value="samples">طلب عينات من شركة</option>
+              <option value="initial">طلب استلام ابتدائي</option>
+              <option value="final">طلب استلام نهائي</option>
+              <option value="warranty">تسليم شهادات/ضمانات</option>
+              <option value="schedule">تقديم أصل الجدول الزمني للمشروع</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="language">لغة الخطاب</label>
+            <select id="language">
+              <option value="ar">العربية</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="project">اسم المشروع</label>
+            <input id="project" placeholder="مثال: مشروع إنشاء ...">
+          </div>
+          <div class="field">
+            <label for="subject">موضوع الخطاب</label>
+            <input id="subject" placeholder="مثال: طلب اعتماد ...">
+          </div>
+          <div class="field">
+            <label for="sender">اسم الشركة/المرسل</label>
+            <input id="sender" placeholder="مثال: شركة مجال الإنجاز للأعمال المتقدمة">
+          </div>
+          <div class="field wide">
+            <label>درجة الصياغة</label>
+            <div class="tone">
+              <label><input type="radio" name="tone" value="balanced" checked> رسمية متوازنة</label>
+              <label><input type="radio" name="tone" value="high"> عالية الرسمية</label>
+              <label><input type="radio" name="tone" value="short"> مختصرة</label>
+            </div>
+          </div>
+          <div class="field wide">
+            <label for="raw">النص الخام أو النقاط المطلوبة</label>
+            <textarea id="raw" placeholder="اكتبي هنا الكلام كما وصلك من الموظف، حتى لو كان بلهجة عامية."></textarea>
+            <div class="hint">المساعد يستبدل العبارات العامية بعبارات رسمية سعودية، ويرتب الخطاب بافتتاحية وخاتمة مناسبة.</div>
+          </div>
+        </div>
+
+        <div class="switches">
+          <label class="check"><input id="includeRef" type="checkbox" checked> إضافة إشارة للموضوع والمشروع</label>
+          <label class="check"><input id="includeAttachments" type="checkbox"> إضافة فقرة مرفقات</label>
+        </div>
+
+        <div class="toolbar" style="margin-top:14px">
+          <button id="generateBtn">صياغة الخطاب</button>
+          <button class="secondary" id="polishBtn">تهذيب النص فقط</button>
+          <button class="warn" id="clearBtn">مسح</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <h2>الخطاب الجاهز</h2>
+        <div class="toolbar">
+          <button class="secondary" id="copyBtn">نسخ</button>
+          <button class="secondary" id="printBtn">طباعة / حفظ PDF</button>
+        </div>
+      </div>
+      <div class="content">
+        <div class="letter-shell">
+          <div id="output" contenteditable="true">سيظهر الخطاب هنا بعد الضغط على زر الصياغة.</div>
+        </div>
+        <div class="hint">يمكنك التعديل مباشرة داخل مربع الخطاب قبل النسخ أو الطباعة.</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    const phrases = [
+      [/احنا|إحنا|نحنا/g, "نحن"],
+      [/عايزين|عاوزين|نبغى|نبي/g, "نرغب في"],
+      [/مش/g, "ليس"],
+      [/اللي/g, "الذي"],
+      [/بتاع|تبع/g, "الخاص بـ"],
+      [/كويس|تمام/g, "مناسب"],
+      [/بسرعة/g, "بصفة عاجلة"],
+      [/ابعت|ابعث|ارسل/g, "إرسال"],
+      [/هنرسل|حنرسل|بنرسل/g, "سنرسل"],
+      [/هنتابع|حنراجع/g, "سنقوم بمتابعة"],
+      [/لو سمحتوا|لو تكرمتوا/g, "نأمل من سعادتكم التكرم"],
+      [/محتاجين/g, "نحتاج إلى"],
+      [/عشان/g, "وذلك لغرض"],
+      [/مافيش|مفيش/g, "لا يوجد"],
+      [/ده|دا/g, "هذا"],
+      [/دي/g, "هذه"],
+      [/حضرتكم/g, "سعادتكم"]
+    ];
+
+    const closings = {
+      ar: {
+        balanced: "شاكرين ومقدرين لسعادتكم حسن تعاونكم، وتفضلوا بقبول فائق الاحترام والتقدير.",
+        high: "سائلين المولى لكم دوام التوفيق، وتفضلوا بقبول وافر التحية والتقدير.",
+        short: "شاكرين تعاونكم، وتفضلوا بقبول التحية والتقدير."
+      },
+      en: {
+        balanced: "We appreciate your kind cooperation and consideration. Please accept our highest regards.",
+        high: "We remain grateful for your continued cooperation and support. Please accept our sincere appreciation and highest regards.",
+        short: "Thank you for your cooperation. Please accept our regards."
+      }
+    };
+
+    const intros = {
+      ar: {
+        general: "إشارة إلى الموضوع أعلاه، نود إفادة سعادتكم بما يلي:",
+        extension: "إشارة إلى المشروع الموضح أعلاه، وبناء على المستجدات المرتبطة بسير الأعمال، نفيد سعادتكم بالموافقة على تمديد مدة المشروع وفق ما تقتضيه مصلحة العمل والإجراءات النظامية.",
+        deficit: "إشارة إلى أعمال المشروع، نفيد سعادتكم بأنه تم إعداد بيان الوفر والعجز وفق الكميات المعتمدة وما استجد من أعمال، ونرفق لسعادتكم البيان للاطلاع واتخاذ ما يلزم.",
+        deficitReply: "إشارة إلى بريدكم الإلكتروني بشأن الوفر والعجز، نفيد سعادتكم بأنه تمت مراجعة الملاحظات الواردة، ونوضح لسعادتكم الآتي:",
+        handover: "إشارة إلى محضر استلام الموقع الخاص بالمشروع، نفيد سعادتكم بتفويض ممثل الشركة للتوقيع على المحضر واستكمال الإجراءات اللازمة.",
+        team: "إشارة إلى متطلبات الجهاز الفني للمشروع، نرفق لسعادتكم بيانات الفريق الفني المرشح للعمل على المشروع، راجين التكرم بالاطلاع والاعتماد.",
+        managerAlt: "إشارة إلى متطلبات إدارة المشروع، نأمل من سعادتكم التكرم باعتماد بديل مدير المشروع الموضح بياناته، وذلك لضمان استمرارية الأعمال دون تأخير.",
+        samples: "إشارة إلى احتياج المشروع للعينات المطلوبة، نأمل من سعادتكم التكرم بتزويدنا بالعينات أو اعتماد المورد المشار إليه، تمهيدا لاستكمال إجراءات الاعتماد والتنفيذ.",
+        initial: "إشارة إلى اكتمال الأعمال محل الطلب، نأمل من سعادتكم التكرم بتحديد موعد للاستلام الابتدائي واتخاذ الإجراءات اللازمة حيال ذلك.",
+        final: "إشارة إلى انتهاء الأعمال ومعالجة الملاحظات ذات العلاقة، نأمل من سعادتكم التكرم بتحديد موعد للاستلام النهائي واستكمال الإجراءات النظامية.",
+        warranty: "إشارة إلى متطلبات تسليم الضمانات الخاصة بالمشروع، نرفق لسعادتكم شهادات الضمان/الضمان النهائي حسب المتطلبات، راجين التكرم بالاطلاع واستكمال ما يلزم.",
+        schedule: "إشارة إلى متطلبات البرنامج الزمني للمشروع، نرفق لسعادتكم أصل الجدول الزمني للمشروع للاطلاع والاعتماد."
+      },
+      en: {
+        general: "With reference to the above subject, we would like to inform you of the following:",
+        extension: "With reference to the above-mentioned project and based on the latest work progress requirements, we confirm our approval of the project duration extension in line with the applicable procedures and the interest of the work.",
+        deficit: "With reference to the project works, we would like to inform you that the surplus/deficit statement has been prepared based on the approved quantities and newly introduced works. The statement is submitted for your review and necessary action.",
+        deficitReply: "With reference to your email regarding the surplus/deficit statement, please note that the received comments have been reviewed, and we would like to clarify the following:",
+        handover: "With reference to the site handover minutes for the project, we would like to inform you that the company representative is authorized to sign the minutes and complete the required procedures.",
+        team: "With reference to the project technical team requirements, we submit for your kind review and approval the proposed technical team assigned to the project.",
+        managerAlt: "With reference to the project management requirements, we kindly request your approval of the proposed replacement Project Manager to ensure continuity of work without delay.",
+        samples: "With reference to the project sample requirements, we kindly request that the required samples be provided or that the proposed supplier be approved in order to proceed with the approval and execution procedures.",
+        initial: "With reference to the completion of the relevant works, we kindly request that a date be scheduled for the initial handover inspection and that the necessary procedures be taken accordingly.",
+        final: "With reference to the completion of the works and the closure of the related comments, we kindly request that a date be scheduled for the final handover and that the statutory procedures be completed.",
+        warranty: "With reference to the project warranty submission requirements, we submit the warranty certificates/final guarantee as required for your kind review and necessary action.",
+        schedule: "With reference to the project baseline schedule requirements, we submit the original project schedule for your review and approval."
+      }
+    };
+
+    function val(id) {
+      return $(id).value.trim();
+    }
+
+    function getTone() {
+      return document.querySelector("input[name='tone']:checked").value;
+    }
+
+    function polish(text) {
+      let out = text.trim();
+      phrases.forEach(([pattern, replacement]) => {
+        out = out.replace(pattern, replacement);
+      });
+      out = out
+        .replace(/\s+/g, " ")
+        .replace(/ ?، ?/g, "، ")
+        .replace(/ ?\. ?/g, ". ")
+        .replace(/([^\n.؟])$/u, "$1.");
+      return out;
+    }
+
+    function splitPoints(text) {
+      return polish(text)
+        .split(/\n|\.|؛|-/)
+        .map((x) => x.trim())
+        .filter((x) => x.length > 2);
+    }
+
+    function buildBody(raw, tone, language) {
+      const points = splitPoints(raw);
+      if (!points.length) return "";
+      if (language === "en") {
+        if (tone === "short" || points.length <= 2) {
+          return points.join(" We would also like to note that ") + ".";
+        }
+        return points.map((p, i) => `${i + 1}. ${p}.`).join("\n");
+      }
+      if (tone === "short" || points.length <= 2) {
+        return points.join(" كما نود الإحاطة بأن ") + ".";
+      }
+      return points.map((p, i) => `${i + 1}. ${p}.`).join("\n");
+    }
+
+    function generate() {
+      const recipient = val("recipient") || "الجهة المحترمة";
+      const recipientTitle = val("recipientTitle") || "سعادة المسؤول المختص";
+      const type = val("letterType");
+      const language = val("language");
+      const project = val("project");
+      const subject = val("subject") || $("letterType").selectedOptions[0].text;
+      const sender = val("sender") || "شركة مجال الإنجاز للأعمال المتقدمة";
+      const raw = val("raw");
+      const tone = getTone();
+      const date = new Date().toLocaleDateString(language === "en" ? "en-GB" : "ar-SA-u-ca-gregory", { year: "numeric", month: "2-digit", day: "2-digit" });
+      const includeRef = $("includeRef").checked;
+      const includeAttachments = $("includeAttachments").checked;
+      const body = buildBody(raw, tone, language);
+      const intro = intros[language][type] || intros[language].general;
+      const detail = body ? `\n\n${body}` : "";
+      const output = $("output");
+
+      if (language === "en") {
+        const enRecipient = recipient || "Respected Entity";
+        const enTitle = recipientTitle || "Dear Sir/Madam";
+        const enSender = sender === "شركة مجال الإنجاز للأعمال المتقدمة" ? "Majal Al-Enjaz Advanced Works Company" : sender;
+        const ref = includeRef
+          ? `Subject: ${subject}${project ? "\nProject: " + project : ""}\nDate: ${date}\n`
+          : `Date: ${date}\n`;
+        const attachments = includeAttachments ? "\n\nAttachments: As indicated above." : "";
+        output.setAttribute("dir", "ltr");
+        output.style.textAlign = "left";
+        output.textContent =
+`${enRecipient}
+${enTitle},
+
+Greetings,
+
+${ref}
+${intro}${detail}
+
+Accordingly, we kindly request your review and guidance regarding the above matter.${attachments}
+
+${closings.en[tone]}
+
+${enSender}`;
+        return;
+      }
+
+      const ref = includeRef
+        ? `الموضوع: ${subject}${project ? "\nالمشروع: " + project : ""}\nالتاريخ: ${date}\n`
+        : `التاريخ: ${date}\n`;
+      const attachments = includeAttachments ? "\n\nالمرفقات: حسب ما هو موضح أعلاه." : "";
+      output.setAttribute("dir", "rtl");
+      output.style.textAlign = "right";
+      output.textContent =
+`${recipient}
+${recipientTitle} حفظه الله
+
+السلام عليكم ورحمة الله وبركاته،
+
+${ref}
+${intro}${detail}
+
+وعليه، نأمل من سعادتكم التكرم بالاطلاع والتوجيه بما ترونه مناسبا حيال ما ورد أعلاه.${attachments}
+
+${closings.ar[tone]}
+
+${sender}`;
+    }
+
+    $("generateBtn").addEventListener("click", generate);
+    $("polishBtn").addEventListener("click", () => {
+      const raw = val("raw");
+      $("output").textContent = raw ? polish(raw) : "أدخلي النص الخام أولا.";
+    });
+    $("copyBtn").addEventListener("click", async () => {
+      await navigator.clipboard.writeText($("output").innerText);
+      $("copyBtn").textContent = "تم النسخ";
+      setTimeout(() => $("copyBtn").textContent = "نسخ", 1200);
+    });
+    $("printBtn").addEventListener("click", () => window.print());
+    $("clearBtn").addEventListener("click", () => {
+      ["recipient", "recipientTitle", "project", "subject", "sender", "raw"].forEach((id) => $(id).value = "");
+      $("output").textContent = "سيظهر الخطاب هنا بعد الضغط على زر الصياغة.";
+    });
+    $("sampleBtn").addEventListener("click", () => {
+      const language = val("language");
+      $("letterType").value = "initial";
+      if (language === "en") {
+        $("recipient").value = "Al-Ahsa Municipality";
+        $("recipientTitle").value = "Director of Projects Department";
+        $("project").value = "Municipal Facilities Maintenance and Rehabilitation Project";
+        $("subject").value = "Request for Initial Handover Inspection";
+        $("sender").value = "Majal Al-Enjaz Advanced Works Company";
+        $("raw").value = "The required works have been completed and we need the inspection committee to visit the site. The related attachments will be submitted with the letter for approval.";
+      } else {
+        $("recipient").value = "أمانة الأحساء";
+        $("recipientTitle").value = "سعادة مدير إدارة المشاريع";
+        $("project").value = "مشروع صيانة وتأهيل مرافق بلدية";
+        $("subject").value = "طلب استلام ابتدائي للأعمال المنفذة";
+        $("sender").value = "شركة مجال الإنجاز للأعمال المتقدمة";
+        $("raw").value = "احنا خلصنا الأعمال المطلوبة ومحتاجين لجنة تيجي تستلم الموقع. فيه بعض المرفقات هنبعتها مع الخطاب عشان الاعتماد.";
+      }
+      $("includeAttachments").checked = true;
+      generate();
+    });
+  </script>
+</body>
+</html>
